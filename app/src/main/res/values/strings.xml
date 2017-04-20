@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Android Device ID</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-4209540176643828/7826454999</string>
+</resources>
