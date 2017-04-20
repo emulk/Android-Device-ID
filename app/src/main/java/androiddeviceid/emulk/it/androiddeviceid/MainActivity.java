@@ -416,7 +416,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(refresh);
             MainActivity.this.finish();
         } else if (id == R.id.nav_share) {
-            String message = "http://play.google.com/store/apps/developer?id=" + appPackageName;
+            String message = "https://play.google.com/store/apps/details?id=" + appPackageName;
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT, message);
