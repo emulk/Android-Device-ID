@@ -14,7 +14,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -96,13 +95,17 @@ public class MainActivity extends AppCompatActivity
         String gsfValue = findGsf();
         String android_id = findAndroidId();
         String imei = findImei();
-        String deviceName = findDeviceName();
         WifiInfo connectionInfo = findIpAdress();
         String simId = findSimId();
         String simOperator = findSimOperator();
         String bluetoothName = findBluetoothName();
         String bluetoothAddress = findBluetoothAddress();
         String hardwareSerial = findHardwareSerial();
+        String deviceName = findDeviceName();
+        String cpuNumber = findCpuNumber();
+        String osVersion = findOsVersion();
+        String sdkVersion = findSdkVersion();
+        String totRam = findTotRam();
         String fingerprint = findFingerprint();
 
 
@@ -115,18 +118,23 @@ public class MainActivity extends AppCompatActivity
         if (email != null && email.length() != 0) {
             obj = new IdObject("Email ",
                     email);
+            obj.setDescription("The email associated with this device.");
             results.add(obj);
         }
 
         if (gsfValue != null && gsfValue.length() != 0) {
             obj = new IdObject("Google Service Framework ",
                     gsfValue);
+            obj.setDescription("A 64-bit number that is randomly generated on the device first boot, GSF should remain constant for the lifetime of the device." +
+                    "The Value change if a factory reset is performed.");
             results.add(obj);
         }
 
         if (android_id != null && android_id.length() != 0) {
             obj = new IdObject("Android Device ID ",
                     android_id);
+            obj.setDescription("A 64-bit unique number that is randomly generated on the device first boot, and identify the device. " +
+                    "The Value change if a factory reset is performed.");
             results.add(obj);
         }
 
@@ -134,12 +142,8 @@ public class MainActivity extends AppCompatActivity
         if (imei != null && imei.length() != 0) {
             obj = new IdObject("IMEI ",
                     imei);
-            results.add(obj);
-        }
-
-        if (deviceName != null && deviceName.length() != 0) {
-            obj = new IdObject("Manufacturer and Model ",
-                    deviceName);
+            obj.setDescription("International Mobile Equipment Identy is a 15 or 17 digit code that uniquely identifies mobile phone sets." +
+                    "The IMEI code can enable a GSM or UMTS network to prevent a misplaced or stolen phone from initiling calls.");
             results.add(obj);
         }
 
@@ -163,6 +167,9 @@ public class MainActivity extends AppCompatActivity
                 String myIP = myInetIP.getHostAddress();
                 obj = new IdObject("Ip Address ",
                         myIP);
+                obj.setDescription("Is a 32-bit number that identifies each sender or receiver of information that is sent in packets" +
+                        "across the Internet. When you request an HTML page or send e-mail, the Internet Protocol part of TCP/IP includes tour IP address" +
+                        "in the message.");
                 results.add(obj);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -172,30 +179,41 @@ public class MainActivity extends AppCompatActivity
         if (connectionInfo != null && connectionInfo.getSSID() != null && connectionInfo.getSSID().length() != 0) {
             obj = new IdObject("SSID ",
                     connectionInfo.getSSID().toString());
+            obj.setDescription("Is a sequence of characters that uniquely names a wireless local area network (WLAN)." +
+                    "An SSID is sometimes referred to as a 'Network name'. This name allows stations to connect to the desired network" +
+                    " when multiple independent networks operate in the same pysical area.");
             results.add(obj);
         }
 
         if (connectionInfo != null && connectionInfo.getMacAddress() != null && connectionInfo.getMacAddress().length() != 0) {
             obj = new IdObject("Mac Address ",
                     connectionInfo.getMacAddress().toString());
+            obj.setDescription("In a local area network (LAN), the Media Access Control address is the device unique hardware number. " +
+                    "A correspondence table relates your IP address to your device's physical address on the LAN");
             results.add(obj);
         }
 
         if (connectionInfo != null && connectionInfo.getBSSID() != null && connectionInfo.getBSSID().length() != 0) {
             obj = new IdObject("BSSID ",
                     connectionInfo.getBSSID().toString());
+            obj.setDescription("Is the MAC address of the wireless access point generated ny combining the 24 bit Organization Unique " +
+                    "Identifier and the manufacturer's assigned 24-bit identifier for the radio chipset in the WAP.");
             results.add(obj);
         }
 
         if (simOperator != null && simOperator.length() != 0) {
-            obj = new IdObject("SIM Operator",
+            obj = new IdObject("SIM Operator Codes",
                     simOperator.toString());
+            obj.setDescription("Is a unique number assigned to every telecommunications operator in all countries of the world. " +
+                    "Operator code consists of two parts: Mobile Network Code(MNC) and Mobile Country Code(MCC).");
             results.add(obj);
         }
 
         if (simId != null && simId.length() != 0) {
-            obj = new IdObject("SIM Card Serial ",
+            obj = new IdObject("SIM Serial Number",
                     simId.toString());
+            obj.setDescription("sometimes called the ICC-ID (Integrated Circuit Card ID), is for international identification." +
+                    " The SNN typically has 19 digits and contains specific details about your operator, your location, and when it was made.");
             results.add(obj);
         }
 
@@ -203,24 +221,60 @@ public class MainActivity extends AppCompatActivity
         if (bluetoothName != null && bluetoothName.length() != 0) {
             obj = new IdObject("Bluetooth Name ",
                     bluetoothName.toString());
+            obj.setDescription("Device bluetooth name.");
             results.add(obj);
         }
 
         if (bluetoothAddress != null && bluetoothAddress.length() != 0) {
             obj = new IdObject("Bluetooth Address ",
                     bluetoothAddress.toString());
+            obj.setDescription("The Media Access Control address is the bluetooth unique hardware number.");
+
+            results.add(obj);
+        }
+
+
+        /*************************** OPERATING SYSTEM DETAILS ********************/
+
+        if (deviceName != null && deviceName.length() != 0) {
+            obj = new IdObject("Manufacturer and Model ",
+                    deviceName);
+            obj.setDescription("The manufacturer of the product/hardware, and the device name.");
+            results.add(obj);
+        }
+
+        if (osVersion != null && osVersion.length() != 0) {
+            obj = new IdObject("Android Version ",
+                    osVersion);
+            obj.setDescription("The current version of Android.");
+            results.add(obj);
+        }
+
+        if (sdkVersion != null && sdkVersion.length() != 0) {
+            obj = new IdObject("API Level ",
+                    sdkVersion);
+            obj.setDescription("Numeric value of the android version. ");
+            results.add(obj);
+        }
+
+        if (cpuNumber != null && cpuNumber.length() != 0) {
+            obj = new IdObject("CPU Cores ",
+                    cpuNumber);
+            obj.setDescription("The CPU number on this device.");
             results.add(obj);
         }
 
         if (hardwareSerial != null && hardwareSerial.length() != 0) {
             obj = new IdObject("Hardware Serial ",
                     hardwareSerial.toString());
+            obj.setDescription("A hardware serial alphanumeric number");
             results.add(obj);
         }
 
         if (fingerprint != null && fingerprint.length() != 0) {
             obj = new IdObject("Device Fingerprint",
                     fingerprint.toString());
+            obj.setDescription("Is information collected about the current build, extracted from system properties.");
             results.add(obj);
         }
 
@@ -376,6 +430,47 @@ public class MainActivity extends AppCompatActivity
         String name = "";
         try {
             name = Build.SERIAL.toUpperCase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public String findCpuNumber() {
+        String name = "";
+        try {
+            name = Runtime.getRuntime().availableProcessors() + "";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public String findOsVersion() {
+        String name = "";
+        try {
+            name = Build.VERSION.RELEASE;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public String findSdkVersion() {
+        String name = "";
+        try {
+            name = Build.VERSION.SDK_INT + "";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public String findTotRam() {
+        String name = "";
+        try {
+            name = Runtime.getRuntime().totalMemory() + "";
+
         } catch (Exception e) {
             e.printStackTrace();
         }

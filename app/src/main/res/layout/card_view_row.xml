@@ -11,11 +11,8 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:clickable="true"
-        android:focusable="true"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="3dp"
-        android:foreground="?android:attr/selectableItemBackground">
+        card_view:contentPadding="3dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
