@@ -30,6 +30,7 @@ import android.view.WindowManager;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final Uri gsf;
+
+    private static final String TAG ="Android Device ID";
 
     static {
         gsf = Uri.parse("content://com.google.android.gsf.gservices");
@@ -173,6 +176,7 @@ public class MainActivity extends AppCompatActivity
                 results.add(obj);
             } catch (Exception e) {
                 e.printStackTrace();
+                FirebaseCrash.logcat(Log.INFO, TAG, "Get ip Address");
             }
         }
 
@@ -290,6 +294,7 @@ public class MainActivity extends AppCompatActivity
             cellNum = phoneManager.getLine1Number().toString();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "findCellNum1");
         }
         return cellNum;
 
@@ -303,6 +308,7 @@ public class MainActivity extends AppCompatActivity
 
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "findEmail");
         }
         return email;
 
@@ -320,6 +326,7 @@ public class MainActivity extends AppCompatActivity
 
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Gsf");
         }
         return name;
 
@@ -336,6 +343,7 @@ public class MainActivity extends AppCompatActivity
                     Settings.Secure.ANDROID_ID).toUpperCase();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Android ID");
         }
         return android_id;
     }
@@ -351,6 +359,7 @@ public class MainActivity extends AppCompatActivity
             imei = telephonyManager.getDeviceId().toString();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Imei");
         }
         return imei;
     }
@@ -364,6 +373,7 @@ public class MainActivity extends AppCompatActivity
             name = manufacturer + " " + model;
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Device Name");
         }
         return name;
     }
@@ -378,6 +388,7 @@ public class MainActivity extends AppCompatActivity
             connectionInfo = wm.getConnectionInfo();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Ip Adress");
         }
         return connectionInfo;
     }
@@ -390,6 +401,7 @@ public class MainActivity extends AppCompatActivity
             name = telephonyManager.getSimSerialNumber().toString();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Sim ID");
         }
         return name;
     }
@@ -402,6 +414,7 @@ public class MainActivity extends AppCompatActivity
             name = telephonyManager.getSimOperator().toString();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Sim Operator");
         }
         return name;
     }
@@ -412,6 +425,7 @@ public class MainActivity extends AppCompatActivity
             name = BluetoothAdapter.getDefaultAdapter().getName();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Bluetooth Name");
         }
         return name;
     }
@@ -422,6 +436,7 @@ public class MainActivity extends AppCompatActivity
             name = BluetoothAdapter.getDefaultAdapter().getAddress();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Bluetooth Address");
         }
         return name;
     }
@@ -432,6 +447,7 @@ public class MainActivity extends AppCompatActivity
             name = Build.SERIAL.toUpperCase();
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Hardware Serial");
         }
         return name;
     }
@@ -442,6 +458,7 @@ public class MainActivity extends AppCompatActivity
             name = Runtime.getRuntime().availableProcessors() + "";
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Cpu Number");
         }
         return name;
     }
@@ -452,6 +469,7 @@ public class MainActivity extends AppCompatActivity
             name = Build.VERSION.RELEASE;
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Os Version");
         }
         return name;
     }
@@ -462,6 +480,7 @@ public class MainActivity extends AppCompatActivity
             name = Build.VERSION.SDK_INT + "";
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Sdk Version");
         }
         return name;
     }
@@ -473,6 +492,7 @@ public class MainActivity extends AppCompatActivity
 
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Tot Ram");
         }
         return name;
     }
@@ -484,6 +504,7 @@ public class MainActivity extends AppCompatActivity
             name = Build.FINGERPRINT;
         } catch (Exception e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.INFO, TAG, "find Fingerprint");
         }
         return name;
     }
@@ -523,6 +544,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
             } catch (Exception e) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                FirebaseCrash.logcat(Log.INFO, TAG, "Start New Activity");
             }
 
         }

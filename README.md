@@ -1,4 +1,8 @@
 ## Device ID
+
+## Privacy policy
+All the user data are not shared or memorizzed.
+
 ### Description
 Simple app to get your device info, like:
 -Email
