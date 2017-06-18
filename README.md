@@ -1,6 +1,6 @@
 ## Device ID
 
-## Privacy policy
+### Privacy policy
 All the user data are not shared or memorizzed.
 
 ### Description
